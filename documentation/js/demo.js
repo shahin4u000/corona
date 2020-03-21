@@ -38,7 +38,7 @@ demo = {
         dataDailySalesChart = {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
             series: [
-                [12, 17, 7, 17, 23, 18, 38]
+                [12, 17, 7, 17, 23, 18, 304030]
             ]
         };
 
