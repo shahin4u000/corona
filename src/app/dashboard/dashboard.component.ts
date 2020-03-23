@@ -11,6 +11,7 @@ import { Observable } from "rxjs";
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
+  condition: boolean = true;
   totalInfected: number;
   totalRecovered: number;
   totalDeath: number;
@@ -38,6 +39,7 @@ export class DashboardComponent implements OnInit {
   getAllCountry() {
     this.coronaNews.coronaAllCountries().subscribe((results) => {
       this.allCountries = results;
+      this.condition = false;
     });
 
   }
