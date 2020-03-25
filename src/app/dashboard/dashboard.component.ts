@@ -4,7 +4,6 @@ import { CoronaApiService } from "./../corona-api.service";
 import { Component, OnInit } from "@angular/core";
 import * as Chartist from "chartist";
 import { Observable } from "rxjs";
-
 @Component({
   selector: "app-dashboard",
   templateUrl: "./dashboard.component.html",
