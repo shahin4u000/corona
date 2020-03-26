@@ -18,7 +18,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { PlottingModule } from './plotting/plotting.module';
-import { ChartsModule } from 'ng2-charts';
+
 
 
 @NgModule({
@@ -31,7 +31,6 @@ import { ChartsModule } from 'ng2-charts';
     ComponentsModule,
     RouterModule,
     AppRoutingModule,
-    ChartsModule,
     PlottingModule,
     
     AgmCoreModule.forRoot({
