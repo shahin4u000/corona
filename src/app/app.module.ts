@@ -9,10 +9,7 @@ import { AppRoutingModule } from './app.routing';
 import { ComponentsModule } from './components/components.module';
 
 import { AppComponent } from './app.component';
-import { DashboardComponent } from './dashboard/dashboard.component';
-import { TableListComponent } from './table-list/table-list.component';
-import { MapsComponent } from './maps/maps.component';
-import { UpgradeComponent } from './upgrade/upgrade.component';
+
 import {
   AgmCoreModule
 } from '@agm/core';

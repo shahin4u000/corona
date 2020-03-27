@@ -85,7 +85,7 @@ export class BarChartComponent implements OnInit, AfterViewInit {
       series: [
         {
           name: "Total Infected",
-          type: "line",
+          type: "bar",
           data: this.data1,
           animationDelay: idx => idx * 10
         },
