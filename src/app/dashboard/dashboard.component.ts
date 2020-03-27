@@ -20,7 +20,7 @@ export class DashboardComponent implements OnInit {
   totalDeath: number;
   lastUpdate: Date;
 
-  allCountries: CoronaAllCountries;
+  allCountries: CoronaAllCountries[];
 
   // for plotting
   worldHistory: CoronaHistory[] = [];
@@ -44,9 +44,11 @@ export class DashboardComponent implements OnInit {
   }
 
   getAllCountries() {
-    this.coronaNews.coronaAllCountries().subscribe(results => {
-      this.allCountries = results;
-    });
+    this.coronaNews.coronaAllCountries().subscribe((results:any[]) => {
+      this.allCountries= results.sort((a, b) => b.cases - a.cases)
+    })
+    
+
   }
 
   getHistory() {
