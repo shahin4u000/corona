@@ -15,6 +15,7 @@ import {
 } from '@agm/core';
 import { AdminLayoutComponent } from './layouts/admin-layout/admin-layout.component';
 import { PlottingModule } from './plotting/plotting.module';
+import { CountryViewComponent } from './country-view/country-view.component';
 
 
 
@@ -37,6 +38,7 @@ import { PlottingModule } from './plotting/plotting.module';
   declarations: [
     AppComponent,
     AdminLayoutComponent,
+    CountryViewComponent,
 
   ],
   providers: [],
