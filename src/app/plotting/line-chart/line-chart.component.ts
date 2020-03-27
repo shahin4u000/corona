@@ -1,59 +1,63 @@
-import { CoronaHistory } from "./../../classes/corona-history";
-import {
-  Component,
-  OnInit,
-  AfterViewInit,
-  ViewChild,
-  Input
-} from "@angular/core";
+import { Component, OnInit, Input } from '@angular/core';
 
-export interface SeriesData {
-  name: string;
-  type: string;
-  data: number[];
-  animationDelay: any;
-}
 @Component({
-  selector: "bar-chart",
-  templateUrl: "./bar-chart.component.html",
-  styleUrls: ["./bar-chart.component.css"]
+  selector: 'line-chart',
+  templateUrl: './line-chart.component.html',
+  styleUrls: ['./line-chart.component.css']
 })
+export class LineChartComponent implements OnInit {
 
-
-export class BarChartComponent implements OnInit, AfterViewInit {
   @Input("History") history;
-  @Input("PlottingData") plottingData;
+  @Input("InfectedHistory") infectedHistory;
   @Input("DeathHistory") deathHistory;
   @Input() plotType: string;
-  @Input() plotLabels: string;
-  @Input() color:string;
 
   options: any = {};
   xAxisData: string[] = [];
-  plotData: number[] = [];
+  data1: number[] = [];
   data2: number[] = [];
-  series : SeriesData[] = [];
 
 
   constructor() {}
   ngOnInit() {
-    this.plotData = this.plottingData;
+    this.data1 = this.infectedHistory;
+    console.log("BarChartComponent -> ngOnInit -> this.data1 ", this.data1 )
+    this.data2 = this.deathHistory
     this.history.forEach(each => {
+      //this.data1.push(each.totalConfirmed);
+      //this.data2.push(each.totalDeathPerDay);
       this.xAxisData.push(each.dates);
     });
-    this.plotLabels;
 
 
   }
   ngAfterViewInit(): void {
-    
+    /* let series1 ;
+    let series2 ;
+
+    if(this.data1) {
+      let series1: SeriesData = {
+        name: "Total infected",
+        type: this.plotType,
+        data: this.data1,
+        animationDelay: idx => idx * 10 + 100
+      } 
+    }
+
+    if(this.data2) {
+      let series2: SeriesData = {
+        name: "Recovered",
+        type: this.plotType,
+        data: this.data2,
+        animationDelay: idx => idx * 10 + 100
+      } 
+    } */
     
     this.options = {
       /* background// ,
       color: [colors.primaryLight, colors.infoLight], */
-      color: [this.color],
       legend: {
-        data: [this.plotLabels],
+        data: ["Infected", "Recovered"],
         align: "left",
         textStyle: {
           //color: echarts.textColor,
@@ -108,15 +112,21 @@ export class BarChartComponent implements OnInit, AfterViewInit {
       ],
       series: [
         {
-          name: this.plotLabels,
+          name: "Infected",
           type: this.plotType,
-          data: this.plotData,
+          data: this.data1,
           animationDelay: idx => idx * 10
+        },
+        {
+          name: "Recovered",
+          type: this.plotType,
+          data: this.data2,
+          animationDelay: idx => idx * 10 + 100
         }
       ],
       animationEasing: "elasticOut",
       animationDelayUpdate: idx => idx * 5
     };
   }
-}
 
+}

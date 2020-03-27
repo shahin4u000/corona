@@ -54,7 +54,6 @@ export class DashboardComponent implements OnInit {
       this.condition = false;
       this.worldHistory = res;
       this.worldHistory.forEach(res => {
-        console.log("DashboardComponent -> getHistory -> res", res);
         this.InfectedHistory.push(res.totalConfirmed);
         this.DeathHistory.push(res.totalDeathPerDay);
       });

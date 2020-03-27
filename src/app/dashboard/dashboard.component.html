@@ -27,8 +27,10 @@
             <div class="card-header ">
               <bar-chart
                 [History]="worldHistory"
-                [InfectedHistory]="InfectedHistory"
+                [PlottingData]="InfectedHistory"
                 [plotType]="'bar'"
+                [plotLabels]="'Infected Histogram'"
+                [color]= "'orange'"
               ></bar-chart>
             </div>
             <div class="card-body">
@@ -49,8 +51,10 @@
             <div class="card-header ">
               <bar-chart
                 [History]="worldHistory"
-                [DeathHistory]="DeathHistory"
+                [PlottingData]="DeathHistory"
                 [plotType]="'bar'"
+                [plotLabels]="'Death Histogram'"
+                [color]= "'red'"
               ></bar-chart>
             </div>
             <div class="card-body">
@@ -72,12 +76,12 @@
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header ">
-              <bar-chart
+              <line-chart
                 [History]="worldHistory"
                 [InfectedHistory]="InfectedHistory"
                 [DeathHistory]="DeathHistory"
                 [plotType]="'line'"
-              ></bar-chart>
+              ></line-chart>
 
               <!-- <div class="ct-chart" id="completedTasksChart"></div> -->
             </div>
@@ -128,7 +132,6 @@
                     <td>{{ country.recovered }}</td>
                     <!-- <td class="table-Active">{{ country.active }}</td> -->
                     <!-- <td>{{ country.critical }} </td> -->
-                    
 
                     <!-- <td>{{ country.casesPerOneMillion }}</td> -->
                   </tr>
