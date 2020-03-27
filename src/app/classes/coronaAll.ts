@@ -1,6 +1,6 @@
 import { Time } from "@angular/common";
 
-export interface All {
+export interface CoronaAll {
     cases: number;
     deaths: number;
     recovered: number;

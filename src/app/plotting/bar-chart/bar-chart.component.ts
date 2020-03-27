@@ -1,104 +1,109 @@
-import { Component, OnInit, AfterViewInit, ViewChild } from "@angular/core";
-import { Chart } from "chart.js";
-import { CoronaApiService } from "app/corona-api.service";
+import { CoronaHistory } from "./../../classes/corona-history";
+import {
+  Component,
+  OnInit,
+  AfterViewInit,
+  ViewChild,
+  Input
+} from "@angular/core";
 
 @Component({
-  selector: "app-bar-chart",
+  selector: "bar-chart",
   templateUrl: "./bar-chart.component.html",
   styleUrls: ["./bar-chart.component.css"]
 })
-export class BarChartComponent implements OnInit {
-  lineChartData: Array<any> = [
-    {
-      label: "My First dataset",
-      fill: false,
-      lineTension: 0.1,
-      backgroundColor: "rgba(75,192,192,0.4)",
-      borderColor: "rgba(75,192,192,1)",
-      borderCapStyle: "butt",
-      borderDash: [],
-      borderDashOffset: 0.0,
-      borderJoinStyle: "miter",
-      pointBorderColor: "rgba(75,192,192,1)",
-      pointBackgroundColor: "#fff",
-      pointBorderWidth: 1,
-      pointHoverRadius: 5,
-      pointHoverBackgroundColor: "rgba(75,192,192,1)",
-      pointHoverBorderColor: "rgba(220,220,220,1)",
-      pointHoverBorderWidth: 2,
-      pointRadius: 1,
-      pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40, 59, 80, 81, 56, 55, 40]
-    }
-  ];
-  lineChartLabels: Array<any> = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-  ];
-  lineChartOptions: any = {
-    responsive: true
-  };
-  lineChartLegend = true;
-  lineChartType = "line";
-  inlinePlugin: any;
-  textPlugin: any;
+export class BarChartComponent implements OnInit, AfterViewInit {
+  @Input("History") history;
+  @Input("InfectedHistory") infectedHistory;
+  @Input("DeathHistory") deathHistory;
+  options: any = {};
+  xAxisData: string[] = [];
+  data1: number[] = [];
+  data2: number[] = [];
   constructor() {}
   ngOnInit() {
-    // inline plugin
-    this.textPlugin = [
-      {
-        id: "textPlugin",
-        beforeDraw(chart: any): any {
-          const width = chart.chart.width;
-          const height = chart.chart.height;
-          const ctx = chart.chart.ctx;
-          ctx.restore();
-          const fontSize = (height / 114).toFixed(2);
-          ctx.font = `${fontSize}em sans-serif`;
-          ctx.textBaseline = "middle";
-          const text = "Text Plugin";
-          const textX = Math.round((width - ctx.measureText(text).width) / 2);
-          const textY = height / 2;
-          ctx.fillText(text, textX, textY);
-          ctx.save();
+    this.history.forEach(each => {
+      this.data1.push(each.totalConfirmed);
+      this.data2.push(each.totalDeathPerDay);
+      this.xAxisData.push(each.dates);
+    });
+  }
+  ngAfterViewInit(): void {
+    console.log(
+      "BarChartComponent -> ngOnInit -> this.xAxisData",
+      this.xAxisData
+    );
+    this.options = {
+      /* background// ,
+      color: [colors.primaryLight, colors.infoLight], */
+      legend: {
+        data: ["Total Infected", "Recovered"],
+        align: "left",
+        textStyle: {
+          //color: echarts.textColor,
         }
-      }
-    ];
+      },
+      tooltip: {},
+      xAxis: [
+        {
+          data: this.xAxisData,
+          silent: false,
+          axisTick: {
+            alignWithLabel: true
+          },
+          axisLine: {
+            lineStyle: {
+              //color: echarts.axisLineColor,
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              //color: echarts.textColor,
+            }
+          }
+        }
+      ],
+      yAxis: [
+        {
+          axisLine: {
+            lineStyle: {
+              //color: echarts.axisLineColor,
+            }
+          },
+          splitLine: {
+            lineStyle: {
+              //color: echarts.splitLineColor,
+            }
+          },
+          axisLabel: {
+            textStyle: {
+              // echarts.textColor,
+            }
+          }
+        }
+      ],
+      series: [
+        {
+          name: "Total Infected",
+          type: "line",
+          data: this.data1,
+          animationDelay: idx => idx * 10
+        },
+        {
+          name: "Recovered",
+          type: "line",
+          data: this.data2,
+          animationDelay: idx => idx * 10 + 100
+        }
+      ],
+      animationEasing: "elasticOut",
+      animationDelayUpdate: idx => idx * 5
+    };
   }
 }
+
+/* for (let i = 0; i < 100; i++) {
+      this.xAxisData.push("Category " + i);
+      this.data1.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
+      this.data2.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
+    } */
