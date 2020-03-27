@@ -1,4 +1,4 @@
-import { CoronaHistory } from './../classes/corona-history';
+import { CoronaHistory } from "./../classes/corona-history";
 import { CoronaAll } from "../classes/coronaAll";
 import { CoronaApiService } from "./../corona-api.service";
 import { Component, OnInit } from "@angular/core";
@@ -12,17 +12,20 @@ import { CoronaAllCountries } from "app/classes/corona-all-countries";
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-
   condition: boolean = true;
+
+  // for general info
   totalInfected: number;
   totalRecovered: number;
   totalDeath: number;
   lastUpdate: Date;
 
   allCountries: CoronaAllCountries;
-  worldHistory: CoronaHistory[]= [];
-  InfectedHistory: any;
-  DeathHistory: any;
+
+  // for plotting
+  worldHistory: CoronaHistory[] = [];
+  InfectedHistory: any[] = [];
+  DeathHistory: any[] = [];
 
   constructor(public coronaNews: CoronaApiService) {}
   ngOnInit(): void {
@@ -33,12 +36,10 @@ export class DashboardComponent implements OnInit {
 
   getAll() {
     this.coronaNews.coronaAll().subscribe((results: CoronaAll) => {
-
       this.totalInfected = results.cases;
       this.totalRecovered = results.recovered;
       this.totalDeath = results.deaths;
       this.lastUpdate = results.updated;
-      
     });
   }
 
@@ -50,9 +51,13 @@ export class DashboardComponent implements OnInit {
 
   getHistory() {
     this.coronaNews.coronaHistory().subscribe(res => {
-
       this.condition = false;
       this.worldHistory = res;
+      this.worldHistory.forEach(res => {
+        console.log("DashboardComponent -> getHistory -> res", res);
+        this.InfectedHistory.push(res.totalConfirmed);
+        this.DeathHistory.push(res.totalDeathPerDay);
+      });
     });
   }
 }

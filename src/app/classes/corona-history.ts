@@ -1,6 +1,6 @@
 export interface CoronaHistory {
-    totalDailyConfirmed : number;
-    totalDailyDeath : number;
+    totalConfirmed : number;
+    totalDeathPerDay : number;
     dates: any;
 
 }

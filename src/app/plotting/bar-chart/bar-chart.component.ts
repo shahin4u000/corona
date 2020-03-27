@@ -16,15 +16,20 @@ export class BarChartComponent implements OnInit, AfterViewInit {
   @Input("History") history;
   @Input("InfectedHistory") infectedHistory;
   @Input("DeathHistory") deathHistory;
+  @Input() plotType: string;
+
   options: any = {};
   xAxisData: string[] = [];
   data1: number[] = [];
   data2: number[] = [];
   constructor() {}
   ngOnInit() {
+    this.data1 = this.infectedHistory;
+    console.log("BarChartComponent -> ngOnInit -> this.data1 ", this.data1 )
+    this.data2 = this.deathHistory
     this.history.forEach(each => {
-      this.data1.push(each.totalConfirmed);
-      this.data2.push(each.totalDeathPerDay);
+      //this.data1.push(each.totalConfirmed);
+      //this.data2.push(each.totalDeathPerDay);
       this.xAxisData.push(each.dates);
     });
   }
@@ -42,6 +47,10 @@ export class BarChartComponent implements OnInit, AfterViewInit {
         textStyle: {
           //color: echarts.textColor,
         }
+      },
+      grid: {
+        top: 70,
+        bottom: 50
       },
       tooltip: {},
       xAxis: [
@@ -64,12 +73,13 @@ export class BarChartComponent implements OnInit, AfterViewInit {
         }
       ],
       yAxis: [
-        {
+        { 
           axisLine: {
             lineStyle: {
               //color: echarts.axisLineColor,
             }
           },
+
           splitLine: {
             lineStyle: {
               //color: echarts.splitLineColor,
@@ -78,6 +88,9 @@ export class BarChartComponent implements OnInit, AfterViewInit {
           axisLabel: {
             textStyle: {
               // echarts.textColor,
+            },
+            formatter: function(value) {
+              return value / 1000 + "k";
             }
           }
         }
@@ -85,13 +98,13 @@ export class BarChartComponent implements OnInit, AfterViewInit {
       series: [
         {
           name: "Total Infected",
-          type: "bar",
+          type: this.plotType,
           data: this.data1,
           animationDelay: idx => idx * 10
         },
         {
           name: "Recovered",
-          type: "line",
+          type: this.plotType,
           data: this.data2,
           animationDelay: idx => idx * 10 + 100
         }
@@ -102,8 +115,3 @@ export class BarChartComponent implements OnInit, AfterViewInit {
   }
 }
 
-/* for (let i = 0; i < 100; i++) {
-      this.xAxisData.push("Category " + i);
-      this.data1.push((Math.sin(i / 5) * (i / 5 - 10) + i / 6) * 5);
-      this.data2.push((Math.cos(i / 5) * (i / 5 - 10) + i / 6) * 5);
-    } */
