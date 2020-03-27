@@ -12,81 +12,63 @@
 <ng-template #mainDashBoard>
   <div class="main-content">
     <div class="container-fluid">
+      <!-- general Info -->
+      <corona-general-info
+        [totalInfected]="totalInfected"
+        [totalDeath]="totalDeath"
+        [totalRecovered]="totalRecovered"
+        [lastUpdate]="lastUpdate"
+      ></corona-general-info>
+
+      <!-- Plot -->
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">local_hotel</i>
-              </div>
-              <p class="card-category ">Total infected</p>
-              <h4 class="card-title">{{ totalInfected | number }}</h4>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-warning">
+              <bar-chart
+                [History]="worldHistory"
+                [InfectedHistory]="InfectedHistory"
+                [DeathHistory]="DeathHistory"
+              ></bar-chart>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Daily Sales</h4>
+              <p class="card-category">
+                <span class="text-success"
+                  ><i class="fa fa-long-arrow-up"></i> 55%
+                </span>
+                increase in today sales.
+              </p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">loyalty</i> Tracked from Johns
-                Hopkings
+                <i class="material-icons">access_time</i> updated 4 minutes ago
               </div>
             </div>
           </div>
         </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">sentiment_very_satisfied</i>
-              </div>
-              <p class="card-category">Recovered</p>
-              <h4 class="card-title">{{ totalRecovered | number }}</h4>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header card-header-success">
+              <bar-chart
+                [History]="worldHistory"
+                [InfectedHistory]="InfectedHistory"
+                [DeathHistory]="DeathHistory"
+              ></bar-chart>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">Email Subscriptions</h4>
+              <p class="card-category">Last Campaign Performance</p>
             </div>
             <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">date_range</i> Last update
-                {{ lastUpdate | date }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">mood_bad</i>
-              </div>
-              <p class="card-category">Total Death</p>
-              <h4 class="card-title">{{ totalDeath | number }}</h4>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="javascript:void(0)">Get More Space...</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">airline_seat_flat</i>
-              </div>
-              <p class="card-category">Death Rate</p>
-              <h4 class="card-title">
-                {{ totalDeath / totalInfected | percent: "1.0-2" }}
-              </h4>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">update</i> Just Updated
+                <i class="material-icons">access_time</i> campaign sent 2 days
+                ago
               </div>
             </div>
           </div>
         </div>
       </div>
-
       <div class="row">
         <div class="col-md-12">
           <div class="card card-chart">
@@ -110,45 +92,8 @@
             </div>
           </div>
         </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-success">
-              <div class="ct-chart" id="dailySalesChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
-              <p class="card-category">
-                <span class="text-success"
-                  ><i class="fa fa-long-arrow-up"></i> 55%
-                </span>
-                increase in today sales.
-              </p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> updated 4 minutes ago
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-warning">
-              <div class="ct-chart" id="websiteViewsChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Email Subscriptions</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days
-                ago
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
+      <!-- table -->
       <div class="row">
         <div class="col-lg-8 col-md-12">
           <div class="card">

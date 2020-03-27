@@ -38,10 +38,7 @@ export class DashboardComponent implements OnInit {
       this.totalRecovered = results.recovered;
       this.totalDeath = results.deaths;
       this.lastUpdate = results.updated;
-      console.log(
-        "DashboardComponent -> constructor -> result",
-        `this.lastUpdate - $new Date()`
-      );
+      
     });
   }
 
@@ -56,7 +53,6 @@ export class DashboardComponent implements OnInit {
 
       this.condition = false;
       this.worldHistory = res;
-      console.log("DashboardComponent -> getHistory -> res", this.worldHistory);
     });
   }
 }
