@@ -65,8 +65,7 @@
               </div>
             </div>
           </div>
-        </div>       
-
+        </div>
 
         <div class="col-lg-3 col-md-6 col-sm-6">
           <div class="card card-stats">
@@ -75,7 +74,9 @@
                 <i class="material-icons">airline_seat_flat</i>
               </div>
               <p class="card-category">Death Rate</p>
-              <h4 class="card-title">{{totalDeath/totalInfected | percent:'1.0-2'}} </h4>
+              <h4 class="card-title">
+                {{ totalDeath / totalInfected | percent: "1.0-2" }}
+              </h4>
             </div>
             <div class="card-footer">
               <div class="stats">
@@ -87,10 +88,14 @@
       </div>
 
       <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-12">
           <div class="card card-chart">
-            <div class="card-header card-header-danger">
-              <app-bar-chart ></app-bar-chart>
+            <div class="card-header card-header-warning">
+              <bar-chart
+                [History]="worldHistory"
+                [InfectedHistory]="InfectedHistory"
+                [DeathHistory]="DeathHistory"
+              ></bar-chart>
 
               <!-- <div class="ct-chart" id="completedTasksChart"></div> -->
             </div>
@@ -144,10 +149,9 @@
             </div>
           </div>
         </div>
-        
       </div>
       <div class="row">
-       <div class="col-lg-8 col-md-12">
+        <div class="col-lg-8 col-md-12">
           <div class="card">
             <div class="card-header card-header-info">
               <h1 class="card-title">Country Stats</h1>

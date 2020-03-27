@@ -1,4 +1,4 @@
-export interface AllCountries {
+export interface CoronaAllCountries {
     "country": string; 
     "cases": number;
     "todayCases": number;
