@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CoronaStatComponent } from './corona-stat.component';
+import { CoronaTableViewComponent } from './corona-table-view.component';
 
-describe('CoronaStatComponent', () => {
-  let component: CoronaStatComponent;
-  let fixture: ComponentFixture<CoronaStatComponent>;
+describe('CoronaTableViewComponent', () => {
+  let component: CoronaTableViewComponent;
+  let fixture: ComponentFixture<CoronaTableViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ CoronaStatComponent ]
+      declarations: [ CoronaTableViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CoronaStatComponent);
+    fixture = TestBed.createComponent(CoronaTableViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
