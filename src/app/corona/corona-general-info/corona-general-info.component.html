@@ -1,1 +1,74 @@
-<p>corona-general-info works!</p>
+<div class="row">
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-warning card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">local_hotel</i>
+          </div>
+          <p class="card-category ">Total infected</p>
+          <h4 class="card-title">{{ totalInfected | number }}</h4>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">loyalty</i> Tracked from Johns
+            Hopkings
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-success card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">sentiment_very_satisfied</i>
+          </div>
+          <p class="card-category">Recovered</p>
+          <h4 class="card-title">{{ totalRecovered | number }}</h4>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">date_range</i> Last update
+            {{ lastUpdate | date }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-danger card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">mood_bad</i>
+          </div>
+          <p class="card-category">Total Death</p>
+          <h4 class="card-title">{{ totalDeath | number }}</h4>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">date_range</i> Last update
+            {{ lastUpdate | date }}
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-lg-3 col-md-6 col-sm-6">
+      <div class="card card-stats">
+        <div class="card-header card-header-icon">
+          <div class="card-icon">
+            <i class="material-icons">airline_seat_flat</i>
+          </div>
+          <p class="card-category">Death Rate</p>
+          <h4 class="card-title">
+            {{ totalDeath / totalInfected | percent: "1.0-2" }}
+          </h4>
+        </div>
+        <div class="card-footer">
+          <div class="stats">
+            <i class="material-icons">update</i> (total death)/ (total infected)
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -12,77 +12,58 @@
 <ng-template #mainDashBoard>
   <div class="main-content">
     <div class="container-fluid">
+      <!-- general Info -->
+      <corona-general-info
+        [totalInfected]="totalInfected"
+        [totalDeath]="totalDeath"
+        [totalRecovered]="totalRecovered"
+        [lastUpdate]="lastUpdate"
+      ></corona-general-info>
+
+      <!-- Plot -->
       <div class="row">
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">local_hotel</i>
-              </div>
-              <p class="card-category ">Total infected</p>
-              <h4 class="card-title">{{ totalInfected | number }}</h4>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header ">
+              <bar-chart
+                [History]="worldHistory"
+                [PlottingData]="InfectedHistory"
+                [plotType]="'bar'"
+                [plotLabels]="'Infected Histogram'"
+                [color]= "'orange'"
+              ></bar-chart>
             </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">loyalty</i> Tracked from Johns
-                Hopkings
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-success card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">sentiment_very_satisfied</i>
-              </div>
-              <p class="card-category">Recovered</p>
-              <h4 class="card-title">{{ totalRecovered | number }}</h4>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">date_range</i> Last update
-                {{ lastUpdate | date }}
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-danger card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">mood_bad</i>
-              </div>
-              <p class="card-category">Total Death</p>
-              <h4 class="card-title">{{ totalDeath | number }}</h4>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons text-danger">warning</i>
-                <a href="javascript:void(0)">Get More Space...</a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div class="col-lg-3 col-md-6 col-sm-6">
-          <div class="card card-stats">
-            <div class="card-header card-header-icon">
-              <div class="card-icon">
-                <i class="material-icons">airline_seat_flat</i>
-              </div>
-              <p class="card-category">Death Rate</p>
+            <div class="card-body">
               <h4 class="card-title">
-                {{ totalDeath / totalInfected | percent: "1.0-2" }}
+                Infected people history 
               </h4>
+              
             </div>
-            <div class="card-footer">
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card card-chart">
+            <div class="card-header ">
+              <bar-chart
+                [History]="worldHistory"
+                [PlottingData]="DeathHistory"
+                [plotType]="'bar'"
+                [plotLabels]="'Death Histogram'"
+                [color]= "'red'"
+              ></bar-chart>
+            </div>
+            <div class="card-body">
+              <h4 class="card-title">
+                Deaths history
+              </h4>
+              <!-- <p class="card-category">Last Campaign Performance</p> -->
+            </div>
+            <!-- <div class="card-footer">
               <div class="stats">
-                <i class="material-icons">update</i> Just Updated
+                <i class="material-icons">access_time</i> campaign sent 2 days
+                ago
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -91,64 +72,30 @@
         <div class="col-md-12">
           <div class="card card-chart">
             <div class="card-header ">
-              <bar-chart
+              <line-chart
                 [History]="worldHistory"
                 [InfectedHistory]="InfectedHistory"
                 [DeathHistory]="DeathHistory"
-              ></bar-chart>
+                [plotType]="'line'"
+              ></line-chart>
 
               <!-- <div class="ct-chart" id="completedTasksChart"></div> -->
             </div>
             <div class="card-body">
-              <h4 class="card-title">Infected/ Recovery Chart</h4>
+              <h4 class="card-title">
+                Comparison between Infected/ Recovered people
+              </h4>
             </div>
-            <div class="card-footer">
+            <!-- <div class="card-footer">
               <div class="stats">
                 <i class="material-icons">access_time</i> campaign sent 2 days
                 ago
               </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-success">
-              <div class="ct-chart" id="dailySalesChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Daily Sales</h4>
-              <p class="card-category">
-                <span class="text-success"
-                  ><i class="fa fa-long-arrow-up"></i> 55%
-                </span>
-                increase in today sales.
-              </p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> updated 4 minutes ago
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="card card-chart">
-            <div class="card-header card-header-warning">
-              <div class="ct-chart" id="websiteViewsChart"></div>
-            </div>
-            <div class="card-body">
-              <h4 class="card-title">Email Subscriptions</h4>
-              <p class="card-category">Last Campaign Performance</p>
-            </div>
-            <div class="card-footer">
-              <div class="stats">
-                <i class="material-icons">access_time</i> campaign sent 2 days
-                ago
-              </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
+      <!-- table -->
       <div class="row">
         <div class="col-lg-8 col-md-12">
           <div class="card">
@@ -161,27 +108,30 @@
             <div class="card-body table-responsive">
               <table class="table table-hover">
                 <thead class="text-warning">
+                  <th></th>
                   <th>Country</th>
                   <th>Infected</th>
-                  <th>recovered</th>
                   <th>Death</th>
-                  <th>active</th>
-                  <th>critical</th>
-                  <th>todayCases</th>
-                  <th>casesPerOneMillion</th>
+                  <th>Today'Case</th>
+                  <th>Recovered</th>
+                  <!-- <th>active</th> -->
+                  <!-- <th>critical</th> -->
+                  <!-- <th>casesPerOneMillion</th> -->
                 </thead>
-                <tbody *ngFor="let country of allCountries">
+                <tbody *ngFor="let country of allCountries;let i=index">
                   <tr>
+                    <td>{{ i+1}}.</td>
                     <td>{{ country.country }}</td>
                     <td class="table-warning">{{ country.cases }}</td>
-                    <td>{{ country.recovered }}</td>
                     <td class="table-danger">
                       <h4>{{ country.deaths }}</h4>
                     </td>
-                    <td class="table-Active">{{ country.active }}</td>
-                    <td>{{ country.critical }}</td>
                     <td>{{ country.todayCases }}</td>
-                    <td>{{ country.casesPerOneMillion }}</td>
+                    <td>{{ country.recovered }}</td>
+                    <!-- <td class="table-Active">{{ country.active }}</td> -->
+                    <!-- <td>{{ country.critical }} </td> -->
+
+                    <!-- <td>{{ country.casesPerOneMillion }}</td> -->
                   </tr>
                 </tbody>
               </table>
@@ -192,3 +142,11 @@
     </div>
   </div>
 </ng-template>
+
+
+<!-- <p class="card-category">
+                <span class="text-success"
+                  ><i class="fa fa-long-arrow-up"></i> 55%
+                </span>
+                Bar chart for Infected People
+              </p> -->

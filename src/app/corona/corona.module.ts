@@ -9,6 +9,7 @@ import { CoronaTableViewComponent } from './corona-table-view/corona-table-view.
   declarations: [CoronaGeneralInfoComponent, CoronaTableViewComponent],
   imports: [
     CommonModule
-  ]
+  ],
+  exports: [CoronaGeneralInfoComponent, CoronaTableViewComponent]
 })
 export class CoronaModule { }

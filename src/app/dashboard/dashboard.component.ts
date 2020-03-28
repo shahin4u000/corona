@@ -1,4 +1,4 @@
-import { CoronaHistory } from './../classes/corona-history';
+import { CoronaHistory } from "./../classes/corona-history";
 import { CoronaAll } from "../classes/coronaAll";
 import { CoronaApiService } from "./../corona-api.service";
 import { Component, OnInit } from "@angular/core";
@@ -12,17 +12,20 @@ import { CoronaAllCountries } from "app/classes/corona-all-countries";
   styleUrls: ["./dashboard.component.css"]
 })
 export class DashboardComponent implements OnInit {
-
   condition: boolean = true;
+
+  // for general info
   totalInfected: number;
   totalRecovered: number;
   totalDeath: number;
   lastUpdate: Date;
 
-  allCountries: CoronaAllCountries;
-  worldHistory: CoronaHistory[]= [];
-  InfectedHistory: any;
-  DeathHistory: any;
+  allCountries: CoronaAllCountries[];
+
+  // for plotting
+  worldHistory: CoronaHistory[] = [];
+  InfectedHistory: any[] = [];
+  DeathHistory: any[] = [];
 
   constructor(public coronaNews: CoronaApiService) {}
   ngOnInit(): void {
@@ -33,30 +36,29 @@ export class DashboardComponent implements OnInit {
 
   getAll() {
     this.coronaNews.coronaAll().subscribe((results: CoronaAll) => {
-
       this.totalInfected = results.cases;
       this.totalRecovered = results.recovered;
       this.totalDeath = results.deaths;
       this.lastUpdate = results.updated;
-      console.log(
-        "DashboardComponent -> constructor -> result",
-        `this.lastUpdate - $new Date()`
-      );
     });
   }
 
   getAllCountries() {
-    this.coronaNews.coronaAllCountries().subscribe(results => {
-      this.allCountries = results;
-    });
+    this.coronaNews.coronaAllCountries().subscribe((results:any[]) => {
+      this.allCountries= results.sort((a, b) => b.cases - a.cases)
+    })
+    
+
   }
 
   getHistory() {
     this.coronaNews.coronaHistory().subscribe(res => {
-
       this.condition = false;
       this.worldHistory = res;
-      console.log("DashboardComponent -> getHistory -> res", this.worldHistory);
+      this.worldHistory.forEach(res => {
+        this.InfectedHistory.push(res.totalConfirmed);
+        this.DeathHistory.push(res.totalDeathPerDay);
+      });
     });
   }
 }
