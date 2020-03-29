@@ -1,1 +1,51 @@
-<p>corona-table-view works!</p>
+<div *ngIf="this.allCountries">
+  <div class="card">
+    <div class="card-header card-header-info">
+      <h1 class="card-title">Country Stats</h1>
+      <h4 class="card-category">Last updated {{ lastUpdate | date }}</h4>
+    </div>
+    <div class="card-body table-responsive">
+      <input
+        class="form-control"
+        id="myInput"
+        type="text"
+        placeholder="Search country.."
+        [(ngModel)]="searchCountry"
+      />
+
+      <table class="table table-hover">
+        <thead class="text-warning">
+          <th></th>
+          <th>Country</th>
+          <th class="table-warning">Total'Case</th>
+          <th>New'Case</th>
+          <th>Death</th>
+          <th class="table-danger">New'Death</th>
+          <th>Recovered</th>
+        </thead>
+        <tbody
+          *ngFor="
+            let country of allCountries | filter: searchCountry;
+            let i = index
+          "
+        >
+          <tr>
+            <td>{{ i + 1 }}.</td>
+            <td>{{ country.country }}</td>
+            <td class="table-warning">{{ country.cases }}</td>
+            <td>
+              <h4>{{ country.todayCases }}</h4>
+            </td>
+            <td>{{ country.deaths }}</td>
+            <td class="table-danger">{{ country.todayDeaths }}</td>
+            <td>{{ country.todayDeaths }}</td>
+            <!-- <td class="table-Active">{{ country.active }}</td> -->
+            <!-- <td>{{ country.critical }} </td> -->
+
+            <!-- <td>{{ country.casesPerOneMillion }}</td> -->
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>

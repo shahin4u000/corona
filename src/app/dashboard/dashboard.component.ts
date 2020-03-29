@@ -2,8 +2,6 @@ import { CoronaHistory } from "./../classes/corona-history";
 import { CoronaAll } from "../classes/coronaAll";
 import { CoronaApiService } from "./../corona-api.service";
 import { Component, OnInit } from "@angular/core";
-import * as Chartist from "chartist";
-import { Observable } from "rxjs";
 import { CoronaAllCountries } from "app/classes/corona-all-countries";
 
 @Component({
@@ -21,6 +19,7 @@ export class DashboardComponent implements OnInit {
   lastUpdate: Date;
 
   allCountries: CoronaAllCountries[];
+  searchCountry:string= "";
 
   // for plotting
   worldHistory: CoronaHistory[] = [];

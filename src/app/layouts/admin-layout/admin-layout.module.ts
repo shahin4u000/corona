@@ -14,7 +14,6 @@ import { MatFormFieldModule } from "@angular/material/form-field";
 import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatSelectModule } from "@angular/material/select";
 import { CoronaModule } from "app/corona/corona.module";
-
 @NgModule({
   imports: [
     CommonModule,
@@ -29,6 +28,7 @@ import { CoronaModule } from "app/corona/corona.module";
     MatTooltipModule,
     PlottingModule,
     CoronaModule
+    
   ],
   declarations: [DashboardComponent, TableListComponent, MapsComponent]
 })
