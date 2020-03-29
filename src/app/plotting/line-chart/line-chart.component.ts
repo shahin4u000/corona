@@ -14,50 +14,37 @@ export class LineChartComponent implements OnInit {
 
   options: any = {};
   xAxisData: string[] = [];
+  color: any [] = [];
   data1: number[] = [];
   data2: number[] = [];
 
 
   constructor() {}
   ngOnInit() {
-    this.data1 = this.infectedHistory;
-    console.log("BarChartComponent -> ngOnInit -> this.data1 ", this.data1 )
-    this.data2 = this.deathHistory
+
+    let rateOfChange1 = this.infectedHistory;
+    let rateOfChange2 = this.deathHistory
     this.history.forEach(each => {
-      //this.data1.push(each.totalConfirmed);
-      //this.data2.push(each.totalDeathPerDay);
       this.xAxisData.push(each.dates);
     });
 
+    rateOfChange1.sort((a,b)=>{
+      this.data1.push(a-b);
+    })
 
+    rateOfChange2.sort((a,b)=>{
+      this.data2.push(a-b);
+    })
   }
   ngAfterViewInit(): void {
-    /* let series1 ;
-    let series2 ;
-
-    if(this.data1) {
-      let series1: SeriesData = {
-        name: "Total infected",
-        type: this.plotType,
-        data: this.data1,
-        animationDelay: idx => idx * 10 + 100
-      } 
-    }
-
-    if(this.data2) {
-      let series2: SeriesData = {
-        name: "Recovered",
-        type: this.plotType,
-        data: this.data2,
-        animationDelay: idx => idx * 10 + 100
-      } 
-    } */
+    
     
     this.options = {
       /* background// ,
-      color: [colors.primaryLight, colors.infoLight], */
+      , */
+      color: ["orange", "red"],
       legend: {
-        data: ["Infected", "Recovered"],
+        data: ["Rate of change for infected people", "Rate of change for death people"],
         align: "left",
         textStyle: {
           //color: echarts.textColor,
@@ -112,13 +99,13 @@ export class LineChartComponent implements OnInit {
       ],
       series: [
         {
-          name: "Infected",
+          name: "Rate of change for infected people",
           type: this.plotType,
           data: this.data1,
           animationDelay: idx => idx * 10
         },
         {
-          name: "Recovered",
+          name: "Rate of change for death people",
           type: this.plotType,
           data: this.data2,
           animationDelay: idx => idx * 10 + 100
