@@ -30,7 +30,7 @@ export class CoronaApiService {
   }
 
   public coronaAllCountries(): Observable<any> {
-    return this.httpClient.get(this.rootURL + "countries");
+    return this.httpClient.get(this.rootURL + "v2/countries");
   }
 
   public coronaHistory(): Observable<any> {
