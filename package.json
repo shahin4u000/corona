@@ -47,7 +47,7 @@
     "googleapis": "40.0.0",
     "hammerjs": "2.0.8",
     "jquery": "3.4.1",
-    "moment": "2.24.0",
+    "moment": "2.29.2",
     "ngx-echarts": "^4.2.2",
     "perfect-scrollbar": "1.1.0",
     "popper.js": "1.15.0",
